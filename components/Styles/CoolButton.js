@@ -9,7 +9,7 @@ export const ButtonWrapper = styled.div`
 
 export const CoolButton = styled.button`
   position: relative;
-  padding: 12px 24px;
+  padding: 0.75rem 1.5rem;
   font-size: 16px;
   font-weight: bold;
   background: transparent;
@@ -55,7 +55,7 @@ export const CoolButton = styled.button`
 
 export const SecondaryButton = styled.button`
   padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: bold;
   border: 2px solid #1e3a8a;
   border-radius: 8px;
