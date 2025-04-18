@@ -1,5 +1,41 @@
 import { useState } from 'react';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { ScholarCard } from '../components/ScholarCard';
+import Navbar from '../components/Layout/Navbar';
+import styled from 'styled-components';
+import { CoolButton, ButtonWrapper } from '../components/Styles/CoolButton';
+const Container = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  color: #000000;
+`;
+
+const Title = styled.h1`
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1e3a8a;
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  color: #1e3a8a;
+`;
+
+const Select = styled.select`
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
 
 export default function Home() {
   const [donationAmount, setDonationAmount] = useState('');
@@ -11,37 +47,30 @@ export default function Home() {
   ];
 
   return (
-    <div className="p-8 max-w-xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">🎓 ScholarFund</h1>
-      <ConnectButton />
+    <>
+      <Navbar />
+      <Container>
+        <Title>🎓 ScholarFund</Title>
 
-      <h2 className="text-xl mt-8 mb-4">Featured Students</h2>
-      {scholars.map((s) => (
-        <div key={s.id} className="border p-4 rounded mb-3">
-          <p className="font-semibold">{s.name}</p>
-          <p>Raised: {s.raised} / {s.goal} ETH</p>
-          <progress value={s.raised} max={s.goal} className="w-full" />
-        </div>
-      ))}
-
-      <h2 className="text-xl mt-8 mb-2">💸 Donate</h2>
-      <select 
-        className="border p-2 w-full mb-2"
-        onChange={(e) => setSelectedScholar(e.target.value)}>
-        <option value="">Select Student</option>
+        <SectionTitle>Featured Students</SectionTitle>
         {scholars.map((s) => (
-          <option value={s.id} key={s.id}>{s.name}</option>
+          <ScholarCard key={s.id} name={s.name} goal={s.goal} raised={s.raised} />
         ))}
-      </select>
-      <input 
-        className="border p-2 w-full mb-2" 
-        placeholder="Amount in ETH"
-        value={donationAmount}
-        onChange={(e) => setDonationAmount(e.target.value)}
-      />
-      <button className="bg-blue-500 text-white py-2 px-4 rounded w-full">
-        Donate
-      </button>
-    </div>
+
+        <SectionTitle>💸 Donate</SectionTitle>
+        <Select onChange={(e) => setSelectedScholar(e.target.value)}>
+          <option value="">Select Student</option>
+          {scholars.map((s) => (
+            <option value={s.id} key={s.id}>{s.name}</option>
+          ))}
+        </Select>
+        <Input 
+          placeholder="Amount in ETH"
+          value={donationAmount}
+          onChange={(e) => setDonationAmount(e.target.value)}
+        />
+        <ButtonWrapper><CoolButton>Donate</CoolButton></ButtonWrapper>
+      </Container>
+    </>
   );
 }
