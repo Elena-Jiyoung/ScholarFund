@@ -1,1 +1,0 @@
-//Public profile (fund progress, milestone logs)
