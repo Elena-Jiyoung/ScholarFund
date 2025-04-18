@@ -10,8 +10,31 @@ const Container = styled.div`
   margin: 2rem auto;
   padding: 2rem;
   background-color: #ffffff;
-  color: #000000;
+  color: #000000; 
   border-radius: 12px;
+`;
+const PageWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+`;
+
+const BackgroundImage = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.15; /* Adjust transparency */
+  z-index: 0;
+`;
+
+const Overlay = styled.div`
+  position: relative;
+  width: 100%;
+  z-index: 1; /* ✅ Keeps text above the background */
 `;
 
 const Title = styled.h1`
@@ -78,7 +101,12 @@ export default function Home() {
 
   return (
     <>
+      <PageWrapper>
+
+      <BackgroundImage src="/scholarship-image.jpg" alt="Landing Background" />
+      <Overlay>
       <NavBar />
+
       <Container>
         <Title>ScholarFund</Title>
 
@@ -109,6 +137,8 @@ export default function Home() {
           <CoolButton><span>Donate</span></CoolButton>
         </ButtonWrapper>
       </Container>
+      </Overlay>
+      </PageWrapper>
     </>
   );
 }

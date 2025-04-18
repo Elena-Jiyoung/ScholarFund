@@ -12,7 +12,11 @@ const Container = styled.div`
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 `;
-
+const PageWrapper = styled.div`
+  background: linear-gradient(to right, #fcfa8a 0%, #ffffff 100%);
+  min-height: 100vh;
+  padding-top: 3rem;
+`;
 const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
@@ -36,6 +40,7 @@ export default function Dashboard() {
   return (
     <>
       <NavBar />
+      <PageWrapper>
       <Container>
         <Title>🎓 Student Dashboard</Title>
         <p>Status: ✅ Approved</p>
@@ -57,6 +62,7 @@ export default function Dashboard() {
           </ButtonWrapper>
         </Section>
       </Container>
+      </PageWrapper>
     </>
   );
 }

@@ -9,11 +9,16 @@ const Container = styled.div`
   margin: 2rem auto;
   padding: 2rem;
   background-color: #ffffff;
-  color: #000000;
+  color:rgb(2, 2, 2);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 `;
 
+const PageWrapper = styled.div`
+  background: linear-gradient(to right, #fcfa8a 0%, #ffffff 100%);
+  min-height: 100vh;
+  padding-top: 3rem;
+`;
 const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
@@ -52,6 +57,7 @@ export default function Apply() {
   return (
     <>
       <NavBar />
+      <PageWrapper>
       <Container>
         <Title>Apply for Scholarship</Title>
         {['name', 'wallet', 'major', 'amount'].map((field) => (
@@ -69,6 +75,7 @@ export default function Apply() {
           <SecondaryButton><span>Submit Application</span></SecondaryButton>
         </ButtonWrapper>
       </Container>
+      </PageWrapper>
     </>
   );
 }
