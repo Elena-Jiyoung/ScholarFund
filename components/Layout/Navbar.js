@@ -11,7 +11,7 @@ const Nav = styled.nav`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
-const Brand = styled.h1`
+const Brand = styled(Link)`
   font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: 1px;
@@ -48,7 +48,7 @@ const StyledLink = styled(Link)`
 export default function NavBar() {
   return (
     <Nav>
-      <Brand>ScholarFund</Brand>
+      <Brand href="/">ScholarFund</Brand>
       <NavLinks>
         <StyledLink href="/">Home</StyledLink>
         <StyledLink href="/apply">Apply</StyledLink>

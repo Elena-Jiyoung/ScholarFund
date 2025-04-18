@@ -4,11 +4,13 @@ import Navbar from '../components/Layout/Navbar';
 import styled from 'styled-components';
 import { CoolButton, ButtonWrapper } from '../components/Styles/CoolButton';
 const Container = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 640px;
+  margin: 2rem auto;
   padding: 2rem;
   background-color: #ffffff;
   color: #000000;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 `;
 
 const Title = styled.h1`

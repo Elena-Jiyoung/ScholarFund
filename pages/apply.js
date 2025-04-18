@@ -1,40 +1,40 @@
-//Scholarship Application Form
+//Scholarship Application form
 import { useState } from 'react';
 import styled from 'styled-components';
 import NavBar from '../components/Layout/Navbar';
+import { SecondaryButton, ButtonWrapper } from '../components/Styles/CoolButton';
 
 const Container = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 640px;
+  margin: 2rem auto;
   padding: 2rem;
   background-color: #ffffff;
   color: #000000;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 `;
 
 const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   color: #1e3a8a;
+  margin-bottom: 1.5rem;
+`;
+
+const Label = styled.label`
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #1e3a8a;
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 0.75rem;
-`;
-
-const Button = styled.button`
-  width: 100%;
-  background-color: #fcfa8a;
-  color: #000000;
   padding: 0.75rem;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #f3f05e;
-  }
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
 `;
 
 export default function Apply() {
@@ -55,15 +55,19 @@ export default function Apply() {
       <Container>
         <Title>Apply for Scholarship</Title>
         {['name', 'wallet', 'major', 'amount'].map((field) => (
-          <Input
-            key={field}
-            name={field}
-            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-            value={form[field]}
-            onChange={handleChange}
-          />
+          <div key={field}>
+            <Label>{field.charAt(0).toUpperCase() + field.slice(1)}</Label>
+            <Input
+              name={field}
+              placeholder={field === 'amount' ? 'e.g. 5 ETH' : ''}
+              value={form[field]}
+              onChange={handleChange}
+            />
+          </div>
         ))}
-        <Button>Submit Application</Button>
+        <ButtonWrapper>
+          <SecondaryButton><span>Submit Application</span></SecondaryButton>
+        </ButtonWrapper>
       </Container>
     </>
   );

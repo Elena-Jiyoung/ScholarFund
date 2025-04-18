@@ -44,3 +44,38 @@ export const CoolButton = styled.button`
     transition: 0.5s;
   }
 `;
+
+export const SecondaryButton = styled.button`
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 2px solid #1e3a8a;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #1e3a8a;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background-color: #1e3a8a;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  span {
+    position: relative;
+    z-index: 1;
+  }
+`;
