@@ -17,6 +17,7 @@ const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   color: #1e3a8a;
+  margin-bottom: 10px;
 `;
 
 const Section = styled.div`
