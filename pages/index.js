@@ -1,3 +1,4 @@
+//home + donate page
 import { useState } from 'react';
 import styled from 'styled-components';
 import NavBar from '../components/Layout/Navbar';
