@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import { createGlobalStyle } from 'styled-components';
+import { ThirdwebProvider, metamaskWallet } from "@thirdweb-dev/react";
 export const GlobalStyle = createGlobalStyle`
 
 *{
@@ -10,5 +11,16 @@ export const GlobalStyle = createGlobalStyle`
 }
 `    
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+  <>
+    <ThirdwebProvider
+    activeChain="binance-testnet" 
+    clientId="your-client-id-from-thirdweb"
+    supportedWallets={[metamaskWallet({ recommended: true })]}
+  >
+    <Component {...pageProps} />
+  </ThirdwebProvider>
+  <GlobalStyle />
+  </>
+  )
 }
