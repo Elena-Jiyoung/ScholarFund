@@ -1,3 +1,5 @@
+// ScholarCard is a card component that displays information about scholars
+// and their funding goals. It includes a progress bar to visualize the amount raised towards their goal.
 import styled from 'styled-components';
 
 const Card = styled.div`
