@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@thirdweb-dev/react": "^4.9.4",
+    "@web3-storage/w3up-client": "^17.2.0",
     "ethers": "^5.7.2",
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "styled-components": "^6.1.17"
+    "styled-components": "^6.1.17",
+    "web3.storage": "^4.5.5"
   }
 }
