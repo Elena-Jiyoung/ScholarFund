@@ -7,11 +7,9 @@ export default function RoleBasedLayout({ children }) {
   const { isAdmin, isValidator, isScholar, address } = useScholarFundThirdWeb();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const [hasRedirected, setHasRedirected] = useState(false);
 
-  // Redirect based on role
   useEffect(() => {
-    const checkRoleAndRedirect = async () => {
+    const checkAccess = async () => {
       if (!address) {
         setIsLoading(false);
         return;
@@ -19,51 +17,33 @@ export default function RoleBasedLayout({ children }) {
 
       const currentPath = router.pathname;
       
-      // If user is on the landing page or apply page, don't redirect
+      // Public routes that don't need protection
       if (currentPath === '/' || currentPath === '/apply') {
         setIsLoading(false);
         return;
       }
 
-      // Only redirect once
-      if (hasRedirected) {
-        setIsLoading(false);
-        return;
+      // Determine the correct dashboard path based on role
+      let correctPath = '';
+      if (isAdmin || isValidator) {
+        // Admins and Validators go to the admin dashboard
+        correctPath = '/admin/dashboard';
+      } else if (isScholar) {
+        correctPath = '/student/dashboard';
+      } else {
+        correctPath = '/donor/dashboard';
       }
-      
-      // Admin routes
-      if (isAdmin) {
-        if (!currentPath.startsWith('/admin')) {
-          setHasRedirected(true);
-          await router.push('/admin/dashboard');
-        }
+
+      // If we're not on the correct path, redirect once
+      if (!currentPath.startsWith(correctPath.split('/')[1])) {
+        await router.push(correctPath);
       }
-      // Validator routes
-      else if (isValidator) {
-        if (!currentPath.startsWith('/validator')) {
-          setHasRedirected(true);
-          await router.push('/validator/dashboard');
-        }
-      }
-      // Scholar routes
-      else if (isScholar) {
-        if (!currentPath.startsWith('/student')) {
-          setHasRedirected(true);
-          await router.push('/student/dashboard');
-        }
-      }
-      // Donor routes
-      else {
-        if (!currentPath.startsWith('/donor')) {
-          setHasRedirected(true);
-          await router.push('/donor/dashboard');
-        }
-      }
+
       setIsLoading(false);
     };
 
-    checkRoleAndRedirect();
-  }, [isAdmin, isValidator, isScholar, address, router, hasRedirected]);
+    checkAccess();
+  }, [address, isAdmin, isValidator, isScholar, router]);
 
   if (isLoading) {
     return (

@@ -33,7 +33,6 @@ export function useScholarFundThirdWeb() {
   
   // Check if the current user is a validator
   const { data: validatorStatus } = useContractRead(contract, "validators", [address || "0x0000000000000000000000000000000000000000"]);
-  
   // Check if the current user is a scholar
   const { data: scholarStatus } = useContractRead(contract, "isScholar", [address || "0x0000000000000000000000000000000000000000"]);
   
