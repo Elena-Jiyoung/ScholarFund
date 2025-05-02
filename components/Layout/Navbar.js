@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styled from 'styled-components';
-
+import  ConnectWalletButton from '@/components/ConnectWalletButton';
 const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -53,6 +53,7 @@ export default function NavBar() {
         <StyledLink href="/">Home</StyledLink>
         <StyledLink href="/apply">Apply</StyledLink>
         <StyledLink href="/dashboard">Dashboard</StyledLink>
+        <ConnectWalletButton />
       </NavLinks>
     </Nav>
   );

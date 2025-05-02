@@ -1,9 +1,10 @@
 //home + donate page
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import NavBar from '../components/Layout/Navbar';
 import { CoolButton, ButtonWrapper } from '../components/Styles/CoolButton';
-
+import DonationForm from '../components/DonationForm';
+import { useScholarFundThirdWeb } from '@/hooks/useScholarFundThirdWeb';
 const Container = styled.div`
   max-width: 640px;
   height: auto;
@@ -91,13 +92,22 @@ const Input = styled.input`
 `;
 
 export default function Home() {
-  const [donationAmount, setDonationAmount] = useState('');
-  const [selectedScholar, setSelectedScholar] = useState('');
+  const { getScholars } = useScholarFundThirdWeb();
+  const [scholars, setScholars] = useState([]);
 
-  const scholars = [
-    { name: 'Elena Choi', id: 'elena', goal: 5, raised: 2.4 },
-    { name: 'John Doe', id: 'john', goal: 3, raised: 1.2 },
-  ];
+  useEffect(() => {
+    (async () => {
+      const s = await getScholars();
+      setScholars(s);
+    })();
+  }, []);
+  // const [donationAmount, setDonationAmount] = useState('');
+  // const [selectedScholar, setSelectedScholar] = useState('');
+
+  // const scholars = [
+  //   { name: 'Elena Choi', id: 'elena', goal: 5, raised: 2.4 },
+  //   { name: 'John Doe', id: 'john', goal: 3, raised: 1.2 },
+  // ];
 
   return (
     <>
@@ -115,27 +125,14 @@ export default function Home() {
           {scholars.map((s) => (
             <StudentCard key={s.id}>
               <h3 style={{ color: '#1e3a8a' }}>{s.name}</h3>
-              <p>Raised: {s.raised} / {s.goal} ETH</p>
-              <ProgressBar value={s.raised} max={s.goal} />
+              <p>Raised: {s.raisedAmount} / {s.totalFunding} ETH</p>
+              <ProgressBar value={parseFloat(s.raisedAmount)} max={parseFloat(s.totalFunding)} />
             </StudentCard>
           ))}
         </CardGrid>
 
         <SectionTitle>Make a Donation</SectionTitle>
-        <Select onChange={(e) => setSelectedScholar(e.target.value)}>
-          <option value="">Select Student</option>
-          {scholars.map((s) => (
-            <option value={s.id} key={s.id}>{s.name}</option>
-          ))}
-        </Select>
-        <Input
-          placeholder="Amount in ETH"
-          value={donationAmount}
-          onChange={(e) => setDonationAmount(e.target.value)}
-        />
-        <ButtonWrapper>
-          <CoolButton><span>Donate</span></CoolButton>
-        </ButtonWrapper>
+        <DonationForm />
       </Container>
       </Overlay>
       </PageWrapper>

@@ -1,18 +1,28 @@
 import { useState, useEffect } from 'react';
-import { useContract, useContractRead, useContractWrite, useAddress } from '@thirdweb-dev/react';
-import contractConfig from './contract-config.json';
+import { useContract, 
+  useContractRead, 
+  useContractWrite, 
+  useAddress,
+  useConnect,
+  useDisconnect,
+} from '@thirdweb-dev/react';
+import { ethers } from "ethers";
+import contractConfig from '../contract-config.json';
 
 /**
  * Custom hook for interacting with the ScholarFund contract using ThirdWeb
  */
 export function useScholarFundThirdWeb() {
   const address = useAddress();
+  const connectWithMetamask = useConnect();
+  const disconnectWallet = useDisconnect();
+  // Connect to the contract
+  const { contract } = useContract(contractConfig.CONTRACT_ADDRESS);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isValidator, setIsValidator] = useState(false);
   const [isScholar, setIsScholar] = useState(false);
   
-  // Connect to the contract
-  const { contract } = useContract(contractConfig.CONTRACT_ADDRESS);
+  
   
   // Check if the current user is an admin
   const { data: adminAddress } = useContractRead(contract, "admin");
@@ -25,7 +35,8 @@ export function useScholarFundThirdWeb() {
   
   // Update roles when data changes
   useEffect(() => {
-    if (address && adminAddress) {
+    if (!address) return <button onClick={connectWithMetamask}>Connect Wallet</button>;
+    if (adminAddress) {
       setIsAdmin(address.toLowerCase() === adminAddress.toLowerCase());
     }
     
@@ -217,6 +228,8 @@ export function useScholarFundThirdWeb() {
 
   return {
     address,
+    connectWithMetamask,
+    disconnectWallet,
     isAdmin,
     isValidator,
     isScholar,

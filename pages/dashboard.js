@@ -1,8 +1,10 @@
 //Student Dashboard (status & milestone requests)
 import styled from 'styled-components';
 import NavBar from '../components/Layout/Navbar';
+import { useState, useEffect } from 'react';
 import { SecondaryButton, ButtonWrapper } from '../components/Styles/CoolButton';
-
+import MilestoneUpload from '../components/MilestoneUpload';
+import { useScholarFundThirdWeb } from '@/hooks/useScholarFundThirdWeb';
 const Container = styled.div`
   max-width: 640px;
   margin: 2rem auto;
@@ -37,13 +39,46 @@ const MilestoneCard = styled.div`
 `;
 
 export default function Dashboard() {
+  const { getScholars, contract, address } = useScholarFundThirdWeb();
+  const [myScholar, setMyScholar] = useState(null);
+  const [milestones, setMilestones] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const all = await getScholars();
+      const found = all.find((s) => s.walletAddress.toLowerCase() === address?.toLowerCase());
+      if (found) {
+        setMyScholar(found);
+        const ms = await contract.call('getScholarMilestones', [found.id]);
+        setMilestones(ms);
+      }
+    })();
+  }, [address]);
+
   return (
     <>
       <NavBar />
       <PageWrapper>
       <Container>
         <Title>🎓 Student Dashboard</Title>
-        <p>Status: ✅ Approved</p>
+        {myScholar && (
+            <>
+              <p>Status: ✅ Approved</p>
+              <p>Raised: {myScholar.raisedAmount} / {myScholar.totalFunding} ETH</p>
+              <Section>
+                <h2 style={{ color: '#1e3a8a', fontWeight: '600' , marginBottom: '10px' }}>Milestones</h2>
+                {milestones.map((m, idx) => (
+                  <MilestoneCard key={idx}>
+                    <p>📦 {m.title}: {m.status === 2 ? '✅ Complete' : m.status === 1 ? '⏳ Submitted' : '📝 Pending'}</p>
+                    {m.status === 0 && (
+                      <MilestoneUpload scholarId={myScholar.id} milestoneId={m.id.toNumber()} />
+                    )}
+                  </MilestoneCard>
+                ))}
+              </Section>
+            </>
+          )}
+        {/* <p>Status: ✅ Approved</p>
         <p>Raised: 2.4 / 5 ETH</p>
 
         <Section>
@@ -59,8 +94,8 @@ export default function Dashboard() {
           </MilestoneCard>
           <ButtonWrapper>
             <SecondaryButton><span>Request Funds</span></SecondaryButton>
-          </ButtonWrapper>
-        </Section>
+          </ButtonWrapper> */}
+        {/* </Section> */}
       </Container>
       </PageWrapper>
     </>

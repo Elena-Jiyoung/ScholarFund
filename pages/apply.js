@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import NavBar from '../components/Layout/Navbar';
 import { SecondaryButton, ButtonWrapper } from '../components/Styles/CoolButton';
-
+import ApplicationForm from '../components/ApplicationForm';
 const Container = styled.div`
   max-width: 640px;
   margin: 2rem auto;
@@ -43,16 +43,16 @@ const Input = styled.input`
 `;
 
 export default function Apply() {
-  const [form, setForm] = useState({
-    name: '',
-    wallet: '',
-    major: '',
-    amount: ''
-  });
+  // const [form, setForm] = useState({
+  //   name: '',
+  //   wallet: '',
+  //   major: '',
+  //   amount: ''
+  // });
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setForm({ ...form, [e.target.name]: e.target.value });
+  // };
 
   return (
     <>
@@ -60,7 +60,7 @@ export default function Apply() {
       <PageWrapper>
       <Container>
         <Title>Apply for Scholarship</Title>
-        {['name', 'wallet', 'major', 'amount'].map((field) => (
+        {/* {['name', 'wallet', 'major', 'amount'].map((field) => (
           <div key={field}>
             <Label>{field.charAt(0).toUpperCase() + field.slice(1)}</Label>
             <Input
@@ -70,10 +70,12 @@ export default function Apply() {
               onChange={handleChange}
             />
           </div>
-        ))}
-        <ButtonWrapper>
+        ))} */} 
+
+        {/* <ButtonWrapper>
           <SecondaryButton><span>Submit Application</span></SecondaryButton>
-        </ButtonWrapper>
+        </ButtonWrapper> */}
+        <ApplicationForm />
       </Container>
       </PageWrapper>
     </>

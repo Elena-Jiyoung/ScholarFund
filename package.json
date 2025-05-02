@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@thirdweb-dev/react": "^4.9.4",
-    "ethers": "^6.13.7",
+    "ethers": "^5.7.2",
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

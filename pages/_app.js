@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import { createGlobalStyle } from 'styled-components';
 import { ThirdwebProvider, metamaskWallet } from "@thirdweb-dev/react";
+import { BinanceTestnet } from "@thirdweb-dev/chains";
 export const GlobalStyle = createGlobalStyle`
 
 *{
@@ -10,17 +11,19 @@ export const GlobalStyle = createGlobalStyle`
     font-family: "Roboto", serif;
 }
 `    
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
-  <>
-    <ThirdwebProvider
-    activeChain="binance-testnet" 
-    clientId="your-client-id-from-thirdweb"
-    supportedWallets={[metamaskWallet({ recommended: true })]}
-  >
-    <Component {...pageProps} />
-  </ThirdwebProvider>
-  <GlobalStyle />
-  </>
+   
+      <ThirdwebProvider
+        clientId={"620a348eb66b1f63621e507c69f00129"}
+        activeChain={BinanceTestnet}
+        supportedWallets={[metamaskWallet()]}
+      >
+        <Component {...pageProps} />
+      </ThirdwebProvider>
+
+  
   )
 }
+
+export default App;
