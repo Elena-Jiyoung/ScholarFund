@@ -236,7 +236,7 @@ export function useScholarFundThirdWeb() {
     contract,
     submitScholarshipApplication,
     reviewScholarshipApplication,
-    createScholarMilestone,
+    createScholarMilestone, 
     submitScholarMilestoneProof,
     reviewScholarMilestone,
     donateToScholar,

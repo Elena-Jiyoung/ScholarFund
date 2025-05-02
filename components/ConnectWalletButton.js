@@ -1,33 +1,26 @@
-import {useScholarFundThirdWeb} from "../hooks/useScholarFundThirdWeb"; // Adjust the import path as necessary
-import { useAddress, useMetamask, useDisconnect } from "@thirdweb-dev/react";
+import { useAddress, useDisconnect } from "@thirdweb-dev/react";
+import { WalletContainer, WalletAddress, DisconnectButton } from './Styles/NavbarStyles';
+
 export default function ConnectWalletButton() {
-    const address = useAddress();
-    const connectWithMetamask = useMetamask();
-    const disconnectWallet = useDisconnect();
-    const { isAdmin, isValidator, isScholar } = useScholarFundThirdWeb(); // Adjust the import path as necessary
-    const connectWallet = async () => {
-        try {
-            await connectWithMetamask();
-        } catch (error) {
-            console.error("Error connecting wallet:", error);
-        }
-    };
-    const disconnectWalletHandler = () => {
-        disconnectWallet();
-    };
+  const address = useAddress();
+  const disconnect = useDisconnect();
+
+  if (address) {
     return (
-        <div className="wallet-connect">
-            {!address ? (
-                <button onClick={connectWallet}>Connect Wallet</button>
-            ) : (
-                <div>
-                    <span>{address}</span>
-                    <button onClick={disconnectWalletHandler}>Disconnect</button>
-                </div>
-            )}
-            {isAdmin && <span>Role: Admin</span>}
-            {isValidator && <span>Role: Validator</span>}
-            {isScholar && <span>Role: Scholar</span>}
-        </div>
+      <WalletContainer>
+        <WalletAddress>
+          {address.slice(0, 6)}...{address.slice(-4)}
+        </WalletAddress>
+        <DisconnectButton onClick={disconnect}>
+          Disconnect
+        </DisconnectButton>
+      </WalletContainer>
     );
   }
+
+  return (
+    <DisconnectButton onClick={() => window.ethereum?.request({ method: 'eth_requestAccounts' })}>
+      Connect Wallet
+    </DisconnectButton>
+  );
+}
