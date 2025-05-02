@@ -172,7 +172,12 @@ export const DonationSection = styled.section`
   margin-top: 4rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   border: 1px solid #e2e8f0;
-`;
+  background: white;
+  text-align: center;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  `;
 
 export const DonationTitle = styled.h2`
   font-family: 'Inter', sans-serif;
@@ -181,6 +186,18 @@ export const DonationTitle = styled.h2`
   color: #1e3a8a;
   margin-bottom: 2rem;
   text-align: center;
+`;
+
+export const DonationDescription = styled.p`
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #4a5568;
+  margin-bottom: 2rem;
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const StatsContainer = styled.div`
@@ -217,4 +234,74 @@ export const StatLabel = styled.div`
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
   color: #4a5568;
+`;
+
+export const ActionButtons = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 2rem 0;
+`;
+
+export const ActionButton = styled.a`
+  background-color: #1e3a8a;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  min-width: 200px;
+
+  &:hover {
+    background-color: #1e40af;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+`;
+
+export const RoleSection = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+`;
+
+export const RoleCard = styled.div`
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+`;
+
+export const RoleTitle = styled.h3`
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 1rem;
+`;
+
+export const RoleDescription = styled.p`
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #4a5568;
+  margin-bottom: 2rem;
+  flex-grow: 1;
 `; 

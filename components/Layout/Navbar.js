@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Nav, Brand, NavLinks, StyledLink } from '../Styles/NavbarStyles';
 import ConnectWalletButton from '../ConnectWalletButton';
+import DashboardButton from '../DashboardButton';
 
 const NavBar = () => {
   return (
@@ -9,7 +10,7 @@ const NavBar = () => {
       <NavLinks>
         <StyledLink href="/">Home</StyledLink>
         <StyledLink href="/apply">Apply</StyledLink>
-        <StyledLink href="/dashboard">Dashboard</StyledLink>
+        <DashboardButton />
         <ConnectWalletButton />
       </NavLinks>
     </Nav>

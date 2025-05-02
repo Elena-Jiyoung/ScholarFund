@@ -8,7 +8,7 @@ import { useContract,
   useDisconnect,
 } from '@thirdweb-dev/react';
 import { ethers } from "ethers";
-import ABI from "@/contracts/ScholarFundABI.json";
+import ABI from "@/contracts/ScholarFundABI.json"; // Adjust the path to your ABI file
 
 /**
  * Custom hook for interacting with the ScholarFund contract using ThirdWeb
@@ -18,34 +18,43 @@ export function useScholarFundThirdWeb() {
   const connectWithMetamask = useMetamask();
   const disconnectWallet = useDisconnect();
   // Connect to the contract
-  const { contract } = useContract(process.env.CONTRACT_ADDRESS, ABI);
+  const { contract } = useContract(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS, ABI);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isValidator, setIsValidator] = useState(false);
   const [isScholar, setIsScholar] = useState(false);
-  
+  useEffect(() => {
+    console.log("[📦] Contract address:", process.env.NEXT_PUBLIC_CONTRACT_ADDRESS);
+    console.log("[🧾] Contract loaded:", contract);
+  }, [contract]);
   
   
   // Check if the current user is an admin
   const { data: adminAddress } = useContractRead(contract, "admin");
   
   // Check if the current user is a validator
-  const { data: validatorStatus } = useContractRead(contract, "validators", [address]);
+  const { data: validatorStatus } = useContractRead(contract, "validators", [address || "0x0000000000000000000000000000000000000000"]);
   
   // Check if the current user is a scholar
-  const { data: scholarStatus } = useContractRead(contract, "isScholar", [address]);
+  const { data: scholarStatus } = useContractRead(contract, "isScholar", [address || "0x0000000000000000000000000000000000000000"]);
   
   // Update roles when data changes
   useEffect(() => {
-    if (adminAddress) {
+    if (address && adminAddress) {
       setIsAdmin(address.toLowerCase() === adminAddress.toLowerCase());
+    } else {
+      setIsAdmin(false);
     }
     
-    if (validatorStatus !== undefined) {
+    if (address && validatorStatus !== undefined) {
       setIsValidator(validatorStatus);
+    } else {
+      setIsValidator(false);
     }
     
-    if (scholarStatus !== undefined) {
+    if (address && scholarStatus !== undefined) {
       setIsScholar(scholarStatus);
+    } else {
+      setIsScholar(false);
     }
   }, [address, adminAddress, validatorStatus, scholarStatus]);
   
@@ -58,13 +67,19 @@ export function useScholarFundThirdWeb() {
   
   const submitScholarshipApplication = async (name, university, major, fundingRequested, ipfsDocHash) => {
     try {
-      // Convert ETH to Wei
+      if (!contract) {
+        throw new Error('Contract not initialized');
+      }
+  
       const fundingInWei = ethers.utils.parseEther(fundingRequested.toString());
-      
+  
       const data = await submitApplication({
-        args: [name, university, major, fundingInWei, ipfsDocHash]
+        args: [name, university, major, fundingInWei, ipfsDocHash],
+        overrides: {
+          gasLimit: 3000000, // Optional: tweak if needed
+        },
       });
-      
+  
       return data;
     } catch (err) {
       console.error("Error submitting application:", err);

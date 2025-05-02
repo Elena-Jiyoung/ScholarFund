@@ -1,9 +1,10 @@
 import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
 import { createGlobalStyle } from 'styled-components';
-import { ThirdwebProvider, metamaskWallet } from "@thirdweb-dev/react";
-import { BinanceTestnet } from "@thirdweb-dev/chains";
-
+import { ThirdwebProvider, metamaskWallet, ChainId } from "@thirdweb-dev/react";
+import { BinanceTestnet } from '@thirdweb-dev/chains';
+import Layout from '@/components/Layout/Layout';
+import RoleBasedLayout from '@/components/Layout/RoleBasedLayout';
 const inter = Inter({ subsets: ['latin'] });
 
 const GlobalStyle = createGlobalStyle`
@@ -33,17 +34,26 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-function App({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
+  // List of public routes that don't need role-based protection
+  const publicRoutes = ['/', '/apply'];
+  const isPublicRoute = publicRoutes.includes(Component.route);
+
   return (
     <ThirdwebProvider
-      clientId={"620a348eb66b1f63621e507c69f00129"}
       activeChain={BinanceTestnet}
-      supportedWallets={[metamaskWallet()]}
+      clientId={process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID}
     >
       <GlobalStyle />
-      <Component {...pageProps} />
+      <Layout>
+        {isPublicRoute ? (
+          <Component {...pageProps} />
+        ) : (
+          <RoleBasedLayout>
+            <Component {...pageProps} />
+          </RoleBasedLayout>
+        )}
+      </Layout>
     </ThirdwebProvider>
   );
 }
-
-export default App;
