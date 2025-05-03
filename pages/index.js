@@ -3,6 +3,7 @@ import Layout from '@/components/Layout/Layout';
 import ConnectWalletButton from '@/components/ConnectWalletButton';
 import { useScholarFundThirdWeb } from '@/hooks/useScholarFundThirdWeb';
 import Link from 'next/link';
+import { ScholarCard } from '@/components/ScholarCard';
 import {
   PageWrapper,
   BackgroundImage,
@@ -13,10 +14,6 @@ import {
   Subtitle,
   SectionTitle,
   CardGrid,
-  StudentCard,
-  StudentName,
-  ProgressBar,
-  ProgressText,
   DonationSection,
   DonationTitle,
   DonationDescription,
@@ -57,7 +54,7 @@ export default function Home() {
               </Subtitle>
             </HeroSection>
 
-            {address && !isAdmin && !isValidator && !isScholar && (
+            {(!address || (address && !isAdmin && !isValidator && !isScholar)) && (
               <RoleSection>
                 <RoleCard>
                   <RoleTitle>Become a Student</RoleTitle>
@@ -99,16 +96,12 @@ export default function Home() {
             <SectionTitle>Featured Students</SectionTitle>
             <CardGrid>
               {scholars.map((s) => (
-                <StudentCard key={s.id}>
-                  <StudentName>{s.name}</StudentName>
-                  <ProgressBar 
-                    value={parseFloat(s.raisedAmount)} 
-                    max={parseFloat(s.totalFunding)} 
-                  />
-                  <ProgressText>
-                    {s.raisedAmount} ETH raised of {s.totalFunding} ETH goal
-                  </ProgressText>
-                </StudentCard>
+                <ScholarCard
+                  key={s.id}
+                  name={s.name}
+                  goal={s.totalFunding}
+                  raised={s.raisedAmount}
+                />
               ))}
             </CardGrid>
 

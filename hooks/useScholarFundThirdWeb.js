@@ -38,19 +38,28 @@ export function useScholarFundThirdWeb() {
   
   // Update roles when data changes
   useEffect(() => {
+    console.log("[👤] Current address:", address);
+    console.log("[👑] Admin address:", adminAddress);
+    console.log("[✅] Validator status:", validatorStatus);
+    console.log("[🎓] Scholar status:", scholarStatus);
+
     if (address && adminAddress) {
-      setIsAdmin(address.toLowerCase() === adminAddress.toLowerCase());
+      const isAdminUser = address.toLowerCase() === adminAddress.toLowerCase();
+      console.log("[👑] Is admin:", isAdminUser);
+      setIsAdmin(isAdminUser);
     } else {
       setIsAdmin(false);
     }
     
     if (address && validatorStatus !== undefined) {
+      console.log("[✅] Is validator:", validatorStatus);
       setIsValidator(validatorStatus);
     } else {
       setIsValidator(false);
     }
     
     if (address && scholarStatus !== undefined) {
+      console.log("[🎓] Is scholar:", scholarStatus);
       setIsScholar(scholarStatus);
     } else {
       setIsScholar(false);

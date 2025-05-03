@@ -10,30 +10,23 @@ export const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  margin: 0 0 10px 0;
   background-color: #1e3a8a;
   color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 export const Brand = styled(Link)`
   font-size: 1.5rem;
   font-weight: bold;
-  letter-spacing: 1px;
   color: #fcfa8a;
   text-decoration: none;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #ffffff;
-  }
 `;
 
 export const NavLinks = styled.div`
   display: flex;
-  gap: 1.5rem;
   align-items: center;
+  gap: 2rem;
 `;
 
 export const StyledLink = styled(Link)`

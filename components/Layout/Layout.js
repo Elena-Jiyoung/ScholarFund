@@ -1,12 +1,18 @@
 import NavBar from './Navbar';
+import styled from 'styled-components';
 
-const Layout = ({ children }) => {
+const MainContent = styled.main`
+  min-height: calc(100vh - 80px); // Ensure content takes up remaining viewport height
+  background-color: #f8fafc;
+`;
+
+export default function Layout({ children }) {
   return (
     <>
       <NavBar />
-      <main>{children}</main>
+      <MainContent>
+        {children}
+      </MainContent>
     </>
   );
-};
-
-export default Layout; 
+} 

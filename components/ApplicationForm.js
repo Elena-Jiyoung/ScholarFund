@@ -183,17 +183,27 @@ export default function ApplicationForm() {
       </FormGroup>
 
       <FormGroup>
-        <Label htmlFor="document">Supporting Document</Label>
+        <Label htmlFor="document">Supporting Documents</Label>
+        <p style={{ fontSize: '0.875rem', color: '#4a5568', marginBottom: '0.5rem' }}>
+          Please upload your resume/CV/portfolio in PDF format. This document should include:
+        </p>
+        <ul style={{ fontSize: '0.875rem', color: '#4a5568', marginBottom: '1rem', paddingLeft: '1rem' }}>
+          <li>Your educational background</li>
+          <li>Relevant experience and achievements</li>
+          <li>Skills and qualifications</li>
+          <li>Any other information that supports your application</li>
+        </ul>
         <FileInput
           id="document"
           type="file"
+          accept=".pdf"
           onChange={handleFileUpload}
           disabled={uploading}
         />
-        {uploading && <UploadStatus>Uploading...</UploadStatus>}
+        {uploading && <UploadStatus>Uploading your document...</UploadStatus>}
         {ipfsUrl && (
           <UploadStatus>
-            Uploaded: <UploadLink href={ipfsUrl} target="_blank" rel="noreferrer">View Document</UploadLink>
+            Document uploaded successfully: <UploadLink href={ipfsUrl} target="_blank" rel="noreferrer">View Document</UploadLink>
           </UploadStatus>
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}

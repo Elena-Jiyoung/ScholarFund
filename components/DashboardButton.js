@@ -10,7 +10,12 @@ export default function DashboardButton() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Only set loading to false once we have the role information
+    console.log("[🔍] DashboardButton - Role check:");
+    console.log("Address:", address);
+    console.log("Is Admin:", isAdmin);
+    console.log("Is Validator:", isValidator);
+    console.log("Is Scholar:", isScholar);
+
     if (address !== undefined) {
       setIsLoading(false);
     }
@@ -18,24 +23,27 @@ export default function DashboardButton() {
 
   const getDashboardPath = () => {
     if (!address) {
-      return '/';
+      return null; // Don't show any path when not connected
     }
     if (isAdmin) {
+      console.log("[🔍] Routing to admin dashboard");
       return '/admin/dashboard';
     }
     if (isValidator) {
-      return '/validator/dashboard';
+      console.log("[🔍] Routing to validator dashboard");
+      return '/admin/dashboard'; // Validators also go to admin dashboard
     }
     if (isScholar) {
+      console.log("[🔍] Routing to student dashboard");
       return '/student/dashboard';
     }
-    // Default to donor dashboard
+    console.log("[🔍] Routing to donor dashboard");
     return '/donor/dashboard';
   };
 
   const getButtonText = () => {
     if (!address) {
-      return 'Connect Wallet';
+      return null; // Don't show any text when not connected
     }
     if (isAdmin) {
       return 'Admin Dashboard';
@@ -49,14 +57,21 @@ export default function DashboardButton() {
     return 'Donor Dashboard';
   };
 
-  if (isLoading) {
-    return null; // Or a loading spinner if you prefer
+  if (isLoading || !address) {
+    return null;
+  }
+
+  const path = getDashboardPath();
+  const text = getButtonText();
+
+  if (!path || !text) {
+    return null;
   }
 
   return (
-    <Link href={getDashboardPath()} passHref>
+    <Link href={path} passHref>
       <ActionButton>
-        {getButtonText()}
+        {text}
       </ActionButton>
     </Link>
   );
