@@ -6,7 +6,7 @@ export const PageWrapper = styled.div`
   min-height: 100vh;
   overflow: hidden;
   background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-  padding-top: 80px;
+  padding-top: 20px;
   &::before {
     content: '';
     position: absolute;
